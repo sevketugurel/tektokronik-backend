@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/reports")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ReportController {
 
     @Autowired
@@ -21,6 +22,17 @@ public class ReportController {
     public ResponseEntity<Report> createReport(@Valid @RequestBody Report report) {
         Report createdReport = reportService.createReport(report);
         return new ResponseEntity<>(createdReport, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<Report> interveneReport(@PathVariable Integer id) {
+        return reportService.getReportById(id)
+                .map(report -> {
+                    report.setReportStatus("işlemde");
+                    Report updatedReport = reportService.updateReport(id, report);
+                    return new ResponseEntity<>(updatedReport, HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/{id}")
@@ -46,4 +58,5 @@ public class ReportController {
         reportService.deleteReport(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 }

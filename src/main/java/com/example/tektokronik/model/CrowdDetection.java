@@ -39,5 +39,6 @@ public class CrowdDetection {
     private List<Alert> alerts;
 
     @OneToMany(mappedBy = "crowdDetection")
+    @JsonBackReference
     private List<RegionalGuidance> regionalGuidances;
 }

@@ -36,6 +36,6 @@ public class AssemblyPoint {
     private LocalDateTime updatedAt = LocalDateTime.now();
 
     @OneToMany(mappedBy = "assemblyPoint")
-    @JsonManagedReference
+    @JsonBackReference
     private List<RegionalGuidance> regionalGuidances;
 }

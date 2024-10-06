@@ -11,7 +11,8 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/emergency-teams")
+@RequestMapping("/api/emergency-teams")
+@CrossOrigin(origins = "http://localhost:5173")
 public class EmergencyTeamController {
 
     @Autowired
@@ -45,5 +46,10 @@ public class EmergencyTeamController {
     public ResponseEntity<Void> deleteTeam(@PathVariable Integer id) {
         teamService.deleteTeam(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("/{id}/assign")
+    public ResponseEntity<String> assignTeam(@PathVariable Integer id) {
+        return new ResponseEntity<>("Team assigned successfully", HttpStatus.OK);
     }
 }

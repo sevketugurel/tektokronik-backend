@@ -18,12 +18,12 @@ public class RegionalGuidance {
 
     @ManyToOne
     @JoinColumn(name = "crowd_detection_id", nullable = false)
-    @JsonBackReference // Sonsuz döngüyü önlemek için
+    @JsonManagedReference // Bu tarafı yönetici olarak işaretliyoruz
     private CrowdDetection crowdDetection;
 
     @ManyToOne
     @JoinColumn(name = "assembly_id", nullable = false)
-    @JsonBackReference // Sonsuz döngüyü önlemek için
+    @JsonManagedReference // Sonsuz döngüyü önlemek için bu taraf geri referans olarak kalıyor
     private AssemblyPoint assemblyPoint;
 
     @Column(nullable = false)
@@ -31,5 +31,4 @@ public class RegionalGuidance {
 
     @Column(nullable = false, length = 15)
     private String status = "beklemede"; // 'beklemede', 'uygulandı', 'iptal edildi'
-
 }
